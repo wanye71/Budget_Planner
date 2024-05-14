@@ -44,4 +44,3 @@ def update_budget_allocation(sender, instance, created, **kwargs):
         budget_allocation = instance.client_name.budget_allocations_associated.get(channel=instance.channel)
         budget_allocation.budget_amount -= instance.budget_amount
         budget_allocation.save()
-    
