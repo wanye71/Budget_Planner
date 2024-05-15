@@ -18,13 +18,20 @@ class Client(models.Model):
 class Campaign(models.Model):
     campaign_name = models.CharField(max_length=100)
     client_name = models.ForeignKey(Client, on_delete=models.CASCADE)
-    budget_amount = models.DecimalField(max_digits=100, decimal_places=2)  # Add a budget amount field
+    budget_amount = models.DecimalField(max_digits=100, decimal_places=2)  # Field for the campaign's budget amount
     start_date = models.DateField()
     end_date = models.DateField()
     description = models.TextField()
 
     def __str__(self):
         return self.campaign_name
+
+class Channel(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
 
 class BudgetAllocation(models.Model):
     client_name = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='budget_allocations_associated')
@@ -42,5 +49,3 @@ class BudgetAllocation(models.Model):
 def update_budget_allocation(sender, instance, created, **kwargs):
     if created:
         budget_allocation = instance.client_name.budget_allocations_associated.get(channel=instance.channel)
-        budget_allocation.budget_amount -= instance.budget_amount
-        budget_allocation.save()
