@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 
 {% block title %}Client List{% endblock %}
-
+    
 {% block content %}
-    <h1>Client List</h1>
-    <ul>
+    <h2 class="display-6">Client List</h2>
+        <div class="row row-cols-2 border-bottom p-1">
+            <div class="col">Client</div> <!-- Column heading for Client -->
+            <div class="col">Account Manager</div> <!-- Column heading for Account Manager -->
+        </div>
         {% for client in clients %}
-            <li><a href="{% url 'client_detail' client.pk %}">{{ client.client_name }}</a></li>
-        {% endfor %}
-    </ul>
+        <div class="row row-cols-2 border-bottom border-start p-1">
+            <div class="col"><a href="{% url 'client_detail' client.pk %}">{{ client.client_name }}</a></div>
+            
+            <div class="col">{{ client.account_manager.first_name }} {{ client.account_manager.last_name }}</div>
+        </div>
+        {% endfor %}    
 {% endblock %}
