@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from .models import Client, Campaign
 
+# Client Views
 class ClientListView(ListView):
     model = Client
     template_name = 'client/client_list.html'  # Create this template in your templates directory
@@ -38,3 +39,15 @@ class ClientDeleteView(DeleteView):
     template_name = 'client/client_confirm_delete.html'  # Create this template in your templates directory
     success_url = reverse_lazy('client_list')  # Redirect to the client list view upon successful deletion
 
+
+# Campaign Views
+
+class CampaignListView(ListView):
+    model = Campaign
+    template_name = 'client/campaign_list.html'  # Create a template named 'campaign_list.html' to display the list of campaigns
+    context_object_name = 'campaigns'  # Define the context variable name for the list of campaigns
+
+class CampaignDetailView(DetailView):
+    model = Campaign
+    template_name = 'client/campaign_detail.html'  # Create a template named 'campaign_detail.html' to display the details of a campaign
+    context_object_name = 'campaign'  # Define the context variable name for the campaign object

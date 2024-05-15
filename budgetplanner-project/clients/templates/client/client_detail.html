@@ -24,7 +24,7 @@
     {% for campaign in campaigns %}
     <div class="row row row-cols-4 border-start p-1">
         <div class="col">
-            <p>{{ campaign.campaign_name }}</p>  
+            <a href="{% url 'campaign-detail' campaign.pk %}">{{ campaign.campaign_name }}</a> 
         </div>
         <div class="col">
             <p>${{ campaign.budget_amount }}</p>  

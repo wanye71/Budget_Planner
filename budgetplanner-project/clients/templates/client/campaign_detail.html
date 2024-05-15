@@ -1,23 +1,24 @@
-{% extends 'budgetplanner/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}Campaign Details{% endblock %}
     
 {% block content %}
-    <h2>{{ campaign.client }} Campaign</h2>
-        <div class="column">
-            <div class="column-header">Campaign: <span>{{ campaign.name }}</span></div>
-        </div>
+    <h2>{{ campaign.client_name }} Campaign</h2>  <!-- Corrected: Use 'client_name' to access the client's name -->
+    
+    <div class="column">
+        <div class="column-header">Campaign: <span>{{ campaign.campaign_name }}</span></div>  <!-- Corrected: Use 'campaign_name' to access the campaign's name -->
+    </div>
         
-        <div class="column">
-            <div class="column-header">Start Date: <span>{{ campaign.start_date }}</span></div>
-        </div>
+    <div class="column">
+        <div class="column-header">Start Date: <span>{{ campaign.start_date }}</span></div>
+    </div>
         
-        <div class="column">
-            <div class="column-header">End Date: <span>{{ campaign.end_date }}</span></div>
-        </div>
+    <div class="column">
+        <div class="column-header">End Date: <span>{{ campaign.end_date }}</span></div>
+    </div>
         
-        <div class="column">
-            <div class="column-header">Description</div>
-            <p>{{ campaign.description }}</p>
-        </div>
+    <div class="column">
+        <div class="column-header">Description</div>
+        <p>{{ campaign.description }}</p>
+    </div>
 {% endblock %}
