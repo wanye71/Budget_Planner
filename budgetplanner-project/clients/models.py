@@ -48,4 +48,6 @@ class BudgetAllocation(models.Model):
 @receiver(post_save, sender=Campaign)
 def update_budget_allocation(sender, instance, created, **kwargs):
     if created:
-        budget_allocation = instance.client_name.budget_allocations_associated.get(channel=instance.channel)
+        budget_allocation = instance.client_name.budget_allocations_associated.first()
+        budget_allocation.budget_amount -= instance.budget_amount
+        budget_allocation.save()
