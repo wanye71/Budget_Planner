@@ -36,7 +36,7 @@
 
     <div class="row row row-cols-3 border-bottom p-4"></div>
 
-    <div class="row row row-cols-3 border-bottom p-1 bg-success">
+    <div class="row row row-cols-4 border-bottom p-1 bg-success">
     
         <div class="col">
             <div class="column-header text-white">Campaign</div>
@@ -50,14 +50,52 @@
     </div>
     
     {% for campaign in campaigns %}
-    <div class="row row row-cols-3 border-start p-1">
+    <div class="row row row-cols-4 border-start p-1" data-budget-forecast="{{ campaign.budget_forecast }}" data-budget-amount="{{ campaign.budget_amount }}">
         <div class="col">
             <a href="{% url 'campaign-detail' campaign.pk %}">{{ campaign.campaign_name }}</a> 
         </div>
-        <div class="col"></div>
-        <div class="col">
-            <p>${{ campaign.budget_amount }}</p>  
-        </div>
+        <div class="col budget-forecast">${{ campaign.budget_forecast }}</div>
+        <div class="col budget-amount"><p>${{ campaign.budget_amount }}</p> </div>
     </div>
     {% endfor %}
+
+    <div class="row">
+        <div class="col">
+            <strong>Total Budget Forecast: </strong>$<span id="total-budget-forecast">0.00</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <strong>Total Spend: </strong>$<span id="total-budget-amount">0.00</span>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let totalBudgetForecast = 0;
+            let totalBudgetAmount = 0;
+            document.querySelectorAll("[data-budget-forecast]").forEach(function(row) {
+                const budgetForecastElement = row.querySelector('.budget-forecast');
+                const budgetAmountElement = row.querySelector('.budget-amount');
+                
+                const budgetForecast = parseFloat(row.getAttribute("data-budget-forecast")) || 0;
+                const budgetAmount = parseFloat(row.getAttribute("data-budget-amount")) || 0;
+                
+                totalBudgetForecast += budgetForecast;
+                totalBudgetAmount += budgetAmount;
+                
+                if (budgetAmount > budgetForecast) {
+                    budgetForecastElement.style.color = 'red';
+                }
+            });
+            document.getElementById("total-budget-forecast").innerText = totalBudgetForecast.toFixed(2);
+            document.getElementById("total-budget-amount").innerText = totalBudgetAmount.toFixed(2);
+        });
+    </script>
+
+    {% comment %} <div class="row row row-cols-4 p-1">
+        <div class="col border"></div>
+        <div class="col border"></div>
+        <div class="col border"></div>
+        <div class="col border"></div>
+    </div> {% endcomment %}
 {% endblock %}
