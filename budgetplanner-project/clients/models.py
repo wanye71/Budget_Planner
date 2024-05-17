@@ -42,7 +42,7 @@ class BudgetAllocation(models.Model):
 
     @property
     def remaining_budget(self):
-        campaigns_total_budget = self.campaigns.aggregate(total_budget=models.Sum('budget_amount'))['total_budget']
+        campaigns_total_budget = self.client_name.campaign_set.aggregate(total_budget=models.Sum('budget_amount'))['total_budget']
         return self.budget_amount - (campaigns_total_budget or 0)
 
 @receiver(post_save, sender=Campaign)

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ClientListView, ClientDetailView, CampaignListView, CampaignDetailView
+from .views import ClientListView, ClientDetailView, CampaignListView, CampaignDetailView, ChannelDetailView
 
 urlpatterns = [
     path('', ClientListView.as_view(), name='client_list'),

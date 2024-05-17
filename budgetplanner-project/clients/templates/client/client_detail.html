@@ -3,29 +3,58 @@
 {% block title %}Client Detail{% endblock %}
 
 {% block content %}
-    <h1>Client Detail</h1>
-    <p><strong>Client Name:</strong> {{ client.client_name }}</p>
-    <p><strong>Contact Phone:</strong> {{ client.contact_phone }}</p>
-    <p><strong>Contact Email:</strong> {{ client.contact_email }}</p>
-    <p><strong>Contact Name:</strong> {{ client.contact_name }}</p>
-    <p><strong>Industry:</strong> {{ client.industry }}</p>
-    <p><strong>Account Manager:</strong> {{ client.account_manager.first_name }} {{ client.account_manager.last_name }}</p>
-
-    <div class="row row row-cols-4 border-bottom p-1">
-    
+    <h3 class="display-6">Client Detail</h3>
+    <div class="row row row-cols-4 border-bottom p-1">    
         <div class="col">
-            <div class="column-header">Campaign</div>
+            <strong class="column-header">Client Name</strong>
         </div>
         <div class="col">
-            <div class="column-header">Spend</div>
+            <strong class="column-header">Budget Allocation</strong>
+        </div>
+        <div class="col">
+            <strong class="column-header">Client Phone</strong>
+        </div>
+        <div class="col">
+            <strong class="column-header">Contact Name</strong>
         </div>
     </div>
 
+    <div class="row row row-cols-4 border-bottom p-1">
+        <div class="col">
+            <div>{{ client.client_name }}</div>
+        </div>    
+        <div class="col">
+            <div>50000.00</div>
+        </div>
+        <div class="col">
+            <div>{{ client.contact_phone }}</div>
+        </div>
+        <div class="col">
+            <div>{{ client.contact_name }}</div>
+        </div>
+    </div>    
+
+    <div class="row row row-cols-3 border-bottom p-4"></div>
+
+    <div class="row row row-cols-3 border-bottom p-1 bg-success">
+    
+        <div class="col">
+            <div class="column-header text-white">Campaign</div>
+        </div>
+        <div class="col">
+            <div class="column-header text-white">Forecast</div>
+        </div>
+        <div class="col">
+            <div class="column-header text-white">Spend</div>
+        </div>
+    </div>
+    
     {% for campaign in campaigns %}
-    <div class="row row row-cols-4 border-start p-1">
+    <div class="row row row-cols-3 border-start p-1">
         <div class="col">
             <a href="{% url 'campaign-detail' campaign.pk %}">{{ campaign.campaign_name }}</a> 
         </div>
+        <div class="col"></div>
         <div class="col">
             <p>${{ campaign.budget_amount }}</p>  
         </div>

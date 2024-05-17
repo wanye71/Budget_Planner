@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Client, Campaign
+from .models import Client, Campaign, Channel
 
 # Client Views
 class ClientListView(ListView):
@@ -51,3 +51,9 @@ class CampaignDetailView(DetailView):
     model = Campaign
     template_name = 'client/campaign_detail.html'  # Create a template named 'campaign_detail.html' to display the details of a campaign
     context_object_name = 'campaign'  # Define the context variable name for the campaign object
+
+# Channel Views    
+class ChannelDetailView(DeleteView):
+    model = Channel
+    template_name = 'client/campaign_detail.html'
+    context_object_name = 'channel'
