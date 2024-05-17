@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
 from .models import Client, Campaign, Channel
+
 
 # Client Views
 class ClientListView(ListView):
@@ -51,6 +53,30 @@ class CampaignDetailView(DetailView):
     model = Campaign
     template_name = 'client/campaign_detail.html'  # Create a template named 'campaign_detail.html' to display the details of a campaign
     context_object_name = 'campaign'  # Define the context variable name for the campaign object
+
+class UpdateCampaignView(View):
+    template_name = 'clients/client_detail.html'
+
+    def get(self, request):
+        campaigns = Campaign.objects.all()
+        return render(request, self.template_name, {'campaigns': campaigns})
+
+    def post(self, request):
+        campaign_id = request.POST.get('campaign')
+        budget_amount = request.POST.get('budget_amount')
+        
+                # Validate budget_amount
+        try:
+            budget_amount = float(budget_amount)
+        except ValueError:
+            raise ValidationError('Invalid value for budget_amount. Must be a decimal number.')
+
+
+        campaign = Campaign.objects.get(pk=campaign_id)
+        campaign.budget_amount = budget_amount
+        campaign.save()
+
+        return redirect('client_detail', pk=campaign.client_name.pk)
 
 # Channel Views    
 class ChannelDetailView(DeleteView):
