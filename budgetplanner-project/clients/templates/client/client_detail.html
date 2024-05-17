@@ -34,22 +34,20 @@
         </div>
     </div>    
 
-    <div class="row row row-cols-3 border-bottom p-4">
-        <form method="post" action="{% url 'update_campaign' %}">
-            {% csrf_token %}
-            <label for="campaign">Select Campaign:</label>
+    <form method="post" action="{% url 'update_campaign' %}">
+    {% csrf_token %}
+        <label for="campaign">Select Campaign:</label>
             <select name="campaign" id="campaign">
                 {% for campaign in campaigns %}
                     <option value="{{ campaign.pk }}">{{ campaign.campaign_name }}</option>
                 {% endfor %}
             </select>
-            <div class="form-group">
-                <label for="budget_amount">Budget Amount:</label>
-                <input type="number" name="budget_amount" id="budget_amount" step="0.01">
-            </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
-    </div>
+        <div class="form-group">
+            <label for="budget_amount">Budget Amount:</label>
+            <input type="number" name="budget_amount" id="budget_amount" step="0.01">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
 
     <div class="row row row-cols-4 border-bottom p-1 bg-success">
     

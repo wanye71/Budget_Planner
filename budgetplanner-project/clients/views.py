@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
-from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.core.exceptions import ValidationError
+from django.views.generic import View
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Client, Campaign, Channel
-
 
 # Client Views
 class ClientListView(ListView):
@@ -64,13 +63,6 @@ class UpdateCampaignView(View):
     def post(self, request):
         campaign_id = request.POST.get('campaign')
         budget_amount = request.POST.get('budget_amount')
-        
-                # Validate budget_amount
-        try:
-            budget_amount = float(budget_amount)
-        except ValueError:
-            raise ValidationError('Invalid value for budget_amount. Must be a decimal number.')
-
 
         campaign = Campaign.objects.get(pk=campaign_id)
         campaign.budget_amount = budget_amount
