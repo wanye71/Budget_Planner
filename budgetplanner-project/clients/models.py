@@ -18,7 +18,8 @@ class Client(models.Model):
 class Campaign(models.Model):
     campaign_name = models.CharField(max_length=100)
     client_name = models.ForeignKey(Client, on_delete=models.CASCADE)
-    budget_amount = models.DecimalField(max_digits=100, decimal_places=2)  # Field for the campaign's budget amount
+    budget_forecast = models.DecimalField(max_digits=100, decimal_places=2)
+    budget_amount = models.DecimalField(max_digits=100, decimal_places=2)
     start_date = models.DateField()
     end_date = models.DateField()
     description = models.TextField()
