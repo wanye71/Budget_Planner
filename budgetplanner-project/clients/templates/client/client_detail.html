@@ -34,20 +34,29 @@
         </div>
     </div>    
 
-    <form method="post" action="{% url 'update_campaign' %}">
+<div class="row row row-cols-3 border-bottom p-3">
+    <div class="col">
+         <form method="post" action="{% url 'update_campaign' %}">
     {% csrf_token %}
-        <label for="campaign">Select Campaign:</label>
-            <select name="campaign" id="campaign">
+        <label for="campaign" class="form-label">Select Campaign:</label>
+            <select name="campaign" id="campaign" class="form-control mb-3">
                 {% for campaign in campaigns %}
                     <option value="{{ campaign.pk }}">{{ campaign.campaign_name }}</option>
                 {% endfor %}
             </select>
         <div class="form-group">
-            <label for="budget_amount">Budget Amount:</label>
-            <input type="number" name="budget_amount" id="budget_amount" step="0.01">
+            <label for="budget_amount" class="form-label">Budget Amount:</label>
+            <input type="number" name="budget_amount" class="form-control" id="budget_amount" step="0.01">
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary mt-2">Update</button>
     </form>
+    </div>
+    <div class="col"></div>
+    <div class="col align-middle">
+        <p><strong>Total Budget Forecast: </strong>$<span id="total-budget-forecast">0.00</span></p>
+        <p><strong>Total Spend: </strong>$<span id="total-budget-amount">0.00</span></p>
+    </div>
+</div>
 
     <div class="row row row-cols-4 border-bottom p-1 bg-success">
     
@@ -71,17 +80,7 @@
         <div class="col budget-amount"><p>${{ campaign.budget_amount }}</p> </div>
     </div>
     {% endfor %}
-
-    <div class="row">
-        <div class="col">
-            <strong>Total Budget Forecast: </strong>$<span id="total-budget-forecast">0.00</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <strong>Total Spend: </strong>$<span id="total-budget-amount">0.00</span>
-        </div>
-    </div>
+    <div class="mb-5"></div>
     {% load static %}
     <script src="{% static 'js/scripts.js' %}"></script>
     {% comment %} <div class="row row row-cols-4 p-1">
