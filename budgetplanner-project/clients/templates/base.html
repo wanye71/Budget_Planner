@@ -15,6 +15,16 @@
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#" onclick="goBack()">Go Back</a>
         </li>
+        {% if user.is_authenticated %}
+      <li>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit">Logout</button>
+        </form>
+      </li>
+    {% else %}
+      <li><a href="{% url 'login' %}">Login</a></li>
+    {% endif %}
     </ul>
     <main class="container-fluid">
         <div class="container">
