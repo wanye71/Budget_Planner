@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Project{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
@@ -16,15 +17,15 @@
             <a class="nav-link active" aria-current="page" href="#" onclick="goBack()">Go Back</a>
         </li>
         {% if user.is_authenticated %}
-      <li>
-        <form method="post" action="{% url 'logout' %}">
-          {% csrf_token %}
-          <button type="submit">Logout</button>
-        </form>
-      </li>
-    {% else %}
-      <li><a href="{% url 'login' %}">Login</a></li>
-    {% endif %}
+        <li class="nav-item">
+            <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </li>
+        {% else %}
+            <li class="nav-item"><a class="nav-link active" href="{% url 'login' %}">Login</a></li>
+        {% endif %}
     </ul>
     <main class="container-fluid">
         <div class="container">

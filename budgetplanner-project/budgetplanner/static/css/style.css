@@ -10,3 +10,9 @@
   flex-direction: column;
   justify-content: center;
 }
+button.logout-btn {
+  border: none;
+  background: none;
+  color: #f2f4f7;
+  margin-top: 0.44rem;
+}

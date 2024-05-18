@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="post" novalidate>
-    {% csrf_token %}
+<div class="container mt-3 d-flex justify-content-center">
+  <form method="post" novalidate class="col-md-6">  {% csrf_token %}
     <h2>Login</h2>
-    {{ form.as_p }}
-    <input type="submit" value="Login" />
-</form>
+    <div class="form-group">
+      {{ form.username.as_widget }}  <label for="username" class="form-label">Username</label>
+    </div>
+    <div class="form-group">
+      {{ form.password.as_widget }}
+      <label for="password" class="form-label">Password</label>
+    </div>
+    <input type="submit" value="Login" class="btn btn-primary" />
+  </form>
+</div>
 {% endblock %}

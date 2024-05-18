@@ -5,17 +5,30 @@ from django.urls import reverse_lazy
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login
 from .models import Client, Campaign, Channel,BudgetAllocation
+from django.contrib.auth.decorators import login_required
+
 
 # Client Views
+
 class ClientListView(ListView):
     model = Client
     template_name = 'client/client_list.html'  # Create this template in your templates directory
     context_object_name = 'clients'
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        return super().dispatch(request, *args, **kwargs)
 
 class ClientDetailView(DetailView):
     model = Client
     template_name = 'client/client_detail.html'  # Create this template in your templates directory
     context_object_name = 'client'
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        return super().dispatch(request, *args, **kwargs)
     
     def get_context_data(self, **kwargs):
         # Get the existing context from DetailView
@@ -56,6 +69,11 @@ class CampaignDetailView(DetailView):
     model = Campaign
     template_name = 'client/campaign_detail.html'  # Create a template named 'campaign_detail.html' to display the details of a campaign
     context_object_name = 'campaign'  # Define the context variable name for the campaign object
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        return super().dispatch(request, *args, **kwargs)
 
 class UpdateCampaignView(View):
     template_name = 'clients/client_detail.html'
