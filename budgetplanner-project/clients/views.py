@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
-from django.views.generic import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login
 from .models import Client, Campaign, Channel,BudgetAllocation
 from django.contrib.auth.decorators import login_required
+from .forms import CampaignForm
 
 
 # Client Views
@@ -91,6 +91,22 @@ class UpdateCampaignView(View):
         campaign.save()
 
         return redirect('client_detail', pk=campaign.client_name.pk)
+
+class CampaignDetailUpdateView(View):
+    template_name = 'client/campaign_detail.html'
+
+    def get(self, request, *args, **kwargs):
+        campaign = get_object_or_404(Campaign, id=kwargs['pk'])
+        form = CampaignForm(instance=campaign)
+        return render(request, self.template_name, {'form': form, 'campaign': campaign})
+
+    def post(self, request, *args, **kwargs):
+        campaign = get_object_or_404(Campaign, id=kwargs['pk'])
+        form = CampaignForm(request.POST, instance=campaign)
+        if form.is_valid():
+            form.save()
+            return redirect('campaign-detail', pk=campaign.pk)
+        return render(request, self.template_name, {'form': form, 'campaign': campaign})
 
 # Channel Views    
 class ChannelDetailView(DeleteView):

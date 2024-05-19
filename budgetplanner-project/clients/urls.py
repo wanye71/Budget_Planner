@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import ClientListView, ClientDetailView, CampaignListView, CampaignDetailView, ChannelDetailView, UpdateCampaignView, LoginView
+from .views import ClientListView, ClientDetailView, CampaignListView, CampaignDetailView, ChannelDetailView, UpdateCampaignView, LoginView, CampaignDetailUpdateView
 
 urlpatterns = [
     # path('', LoginView.as_view(), name='admin_login'),
@@ -16,4 +16,7 @@ urlpatterns = [
     path('campaigns/<int:pk>/', CampaignDetailView.as_view(), name='campaign-detail'),
     
     path('update-campaign/', UpdateCampaignView.as_view(), name='update_campaign'),
+    
+    path('campaign/<int:pk>/update/', CampaignDetailUpdateView.as_view(), name='campaign_detail_update'),
+
 ]
